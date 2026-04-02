@@ -1,6 +1,8 @@
+import random
 class Empire():
   def __init__(self, name, capital, current_year):
     self.name = name
+    self.founded_in = current_year
     self.current_year = current_year
     self.capital = capital
     self.cities = []
@@ -175,7 +177,8 @@ class Empire():
     for city in self.cities:
       if not city.starved:
         self.city_count += 1
-  
+    for city in self.cities:
+      city.empire = self.name
   def advance_time(self, years):
     for year in range(years):
       print(year)

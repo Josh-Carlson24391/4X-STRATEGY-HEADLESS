@@ -1,11 +1,13 @@
 #CITY CLASS DEF
-
+from world import GAME_RESOURCES
+import random
 class City:
   def __init__(self, name, region, population, empire):
     self.starved = False
     self.name = name
     self.region = region
     self.empire = empire
+    self.GAME_RESOURCES = GAME_RESOURCES
    
    
    #TODO -> ADD GARRISON FUNCTIONALITY
@@ -146,7 +148,7 @@ class City:
     food = 0
     sources = self.get_resource_summary()
     for k, v in sources.items():
-      for item in GAME_RESOURCES:
+      for item in self.GAME_RESOURCES:
         if item.name == k:
           food += item.food * v
 
