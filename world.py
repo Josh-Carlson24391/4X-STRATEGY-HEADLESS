@@ -92,6 +92,70 @@ class Military_Building(Building):
       pass
       print("GARRISON FULL")
 
+class Region:
+  def __init__(self, name, soil, water, animal, wood, stone, core, sand, spice, dye, rore):
+    self.name = name
+
+    SOIL = Resource("Soil", 2, 5)
+    WATER = Resource("Fresh Water", 3, 2)
+    ANIMAL = Resource("Wild Animals", 2, 5)
+    WOOD = Resource("Wood", 3, 0)
+    STONE = Resource("Stone", 3, 0)
+    CORE = Resource("Common Ore", 5, 0)
+    SAND = Resource('Sand', 2, 0)
+    SPICE = Resource("Spice", 2, 3)
+    DYE = Resource("Dye", 2, 0)
+    RORE = Resource("Rare Ore", 5, 0)
+    self.GAME_RESOURCES = []
+    self.GAME_RESOURCES.append(SOIL)
+    self.GAME_RESOURCES.append(WATER)
+    self.GAME_RESOURCES.append(ANIMAL)
+    self.GAME_RESOURCES.append(WOOD)
+    self.GAME_RESOURCES.append(STONE)
+    self.GAME_RESOURCES.append(CORE)
+    self.GAME_RESOURCES.append(SAND)
+    self.GAME_RESOURCES.append(SPICE)
+    self.GAME_RESOURCES.append(DYE)
+    self.GAME_RESOURCES.append(RORE)
+    
+    self.resources = {}
+    self.base_resources = {}
+
+    self.resources.update({"Soil": soil})
+    self.resources.update({"Fresh Water": water})
+    self.resources.update({"Wild Animals": animal})
+    self.resources.update({"Wood": wood})
+    self.resources.update({"Stone": stone})
+    self.resources.update({"Common Ore": core})
+    self.resources.update({"Sand": sand})
+    self.resources.update({"Spices": spice})
+    self.resources.update({"Dye": dye})
+    self.resources.update({"Rare Ore": rore})
+
+    self.base_resources.update({"Soil": soil})
+    self.base_resources.update({"Fresh Water": water})
+    self.base_resources.update({"Wild Animals": animal})
+    self.base_resources.update({"Wood": wood})
+    self.base_resources.update({"Stone": stone})
+    self.base_resources.update({"Common Ore": core})
+
+
+
+  def get_available(self):
+    available = {}
+    for key, val in self.resources.items():
+      if val >= 1:
+        available.update({key : val})
+    return available
+
+  def get_available_base(self):
+    available = {}
+    for key, val in self.base_resources.items():
+      if val >= 1:
+        available.update({key : val})
+    return available
+
+
 class Island:
   def __init__(self, name, regions):
     self.name = name
