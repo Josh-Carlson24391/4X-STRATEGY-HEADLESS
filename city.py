@@ -2,9 +2,10 @@
 from world import GAME_RESOURCES
 import random
 class City:
-  def __init__(self, name, region, population, empire):
+  def __init__(self, name, island, region, population, empire):
     self.starved = False
     self.name = name
+    self.island = island
     self.region = region
     self.empire = empire
     self.GAME_RESOURCES = GAME_RESOURCES

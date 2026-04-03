@@ -38,6 +38,14 @@ GAME_RESOURCES.append(SPICE)
 GAME_RESOURCES.append(DYE)
 GAME_RESOURCES.append(RORE)
 
+GAME_BASE_RESOURCES = []
+GAME_BASE_RESOURCES.append(SOIL)
+GAME_BASE_RESOURCES.append(WATER)
+GAME_BASE_RESOURCES.append(ANIMAL)
+GAME_BASE_RESOURCES.append(WOOD)
+GAME_BASE_RESOURCES.append(STONE)
+GAME_BASE_RESOURCES.append(CORE)
+
 class Building:
   def __init__(self, name, food, production, buy_cost, sell_value, operation_cost, city, count):
     self.name = name
@@ -91,53 +99,23 @@ class Military_Building(Building):
     else:
       pass
       print("GARRISON FULL")
-
+#Resource list: soil, water, animal, wood, stone, core, sand, spice, dye, rore
+#Region declaration requires a dictionary of resources and base resources there as an input
 class Region:
-  def __init__(self, name, soil, water, animal, wood, stone, core, sand, spice, dye, rore):
+  def __init__(self, name, resources):
     self.name = name
-
-    SOIL = Resource("Soil", 2, 5)
-    WATER = Resource("Fresh Water", 3, 2)
-    ANIMAL = Resource("Wild Animals", 2, 5)
-    WOOD = Resource("Wood", 3, 0)
-    STONE = Resource("Stone", 3, 0)
-    CORE = Resource("Common Ore", 5, 0)
-    SAND = Resource('Sand', 2, 0)
-    SPICE = Resource("Spice", 2, 3)
-    DYE = Resource("Dye", 2, 0)
-    RORE = Resource("Rare Ore", 5, 0)
-    self.GAME_RESOURCES = []
-    self.GAME_RESOURCES.append(SOIL)
-    self.GAME_RESOURCES.append(WATER)
-    self.GAME_RESOURCES.append(ANIMAL)
-    self.GAME_RESOURCES.append(WOOD)
-    self.GAME_RESOURCES.append(STONE)
-    self.GAME_RESOURCES.append(CORE)
-    self.GAME_RESOURCES.append(SAND)
-    self.GAME_RESOURCES.append(SPICE)
-    self.GAME_RESOURCES.append(DYE)
-    self.GAME_RESOURCES.append(RORE)
-    
+    self.cities = []
     self.resources = {}
+    
     self.base_resources = {}
-
-    self.resources.update({"Soil": soil})
-    self.resources.update({"Fresh Water": water})
-    self.resources.update({"Wild Animals": animal})
-    self.resources.update({"Wood": wood})
-    self.resources.update({"Stone": stone})
-    self.resources.update({"Common Ore": core})
-    self.resources.update({"Sand": sand})
-    self.resources.update({"Spices": spice})
-    self.resources.update({"Dye": dye})
-    self.resources.update({"Rare Ore": rore})
-
-    self.base_resources.update({"Soil": soil})
-    self.base_resources.update({"Fresh Water": water})
-    self.base_resources.update({"Wild Animals": animal})
-    self.base_resources.update({"Wood": wood})
-    self.base_resources.update({"Stone": stone})
-    self.base_resources.update({"Common Ore": core})
+    
+    for resource, val in resources.items():
+      self.resources.update({resource : val})
+    
+    for base in GAME_BASE_RESOURCES:
+        for resource, val in self.resources.items():
+          if resource == base.name:
+            self.base_resources.update({resource : val})
 
 
 
@@ -155,12 +133,18 @@ class Region:
         available.update({key : val})
     return available
 
+  def __str__(self):
+    return self.name
 
 class Island:
   def __init__(self, name, regions):
     self.name = name
     self.regions = regions
-
+  def __str__(self):
+    string = f"{self.name}\n"
+    for region in self.regions:
+      string += f'\n-{region.name}'
+    return string
 class WORLD:
   def __init__(self, name, islands):
     self.name = name
